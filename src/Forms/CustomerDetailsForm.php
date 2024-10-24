@@ -611,11 +611,12 @@ class CustomerDetailsForm extends Form
         foreach ($estimate->Items() as $item) {
             $locked = $item->Locked;
             $deliverable = $item->Deliverable;
-            $stocked = $item->Stocked;
 
             LineItemFactory::create()
                 ->setItem($item)
                 ->setParent($estimate) // Force estimate to pickup new delivery
+                ->setLock($locked)
+                ->setDeliverable($deliverable)
                 ->update()
                 ->write();
         }
