@@ -85,7 +85,7 @@ class CustomerDetailsForm extends Form
         return $this;
     }
 
-    public function __construct($controller, $name = "CustomerDetailsForm", Estimate $estimate)
+    public function __construct($controller, $name, Estimate $estimate)
     {
         $member = Security::getCurrentUser();
         $contact = ($member) ? $member->Contact() : null;
@@ -108,11 +108,11 @@ class CustomerDetailsForm extends Form
         $new_billing = false;
         $same_shipping = 1;
         $new_shipping = false;
-        
+
         if (isset($data['NewBilling'])) {
             $new_billing = $data['NewBilling'];
         }
-        
+
         if (isset($data['DuplicateDelivery'])) {
             $same_shipping = $data['DuplicateDelivery'];
         }
@@ -464,7 +464,7 @@ class CustomerDetailsForm extends Form
         } else {
             $billing_dropdown = true;
         }
-        
+
         $deliverable = $estimate->isDeliverable();
 
         return CheckoutValidator::create($deliverable, $billing_dropdown);
@@ -502,7 +502,7 @@ class CustomerDetailsForm extends Form
 
         $session = $this->getSession();
         $session->set("FormInfo.{$this->FormName()}.settings", $data);
-        
+
         return $this->getController()->redirectBack();
     }
 
@@ -564,7 +564,7 @@ class CustomerDetailsForm extends Form
                     'Email' => $data['Email'],
                 ]
             )->first();
-    
+
             if (empty($contact)) {
                 $contact = Contact::create();
             }
@@ -662,7 +662,7 @@ class CustomerDetailsForm extends Form
 
             // Add member to the customers group
             $group = Group::get()->find("Code", "ecommerce-customers");
-            
+
             if ($group) {
                 $group->Members()->add($member);
                 $group->write();
@@ -677,7 +677,7 @@ class CustomerDetailsForm extends Form
                 $this->getRequest()
             );
         }
-    
+
         if (!$member) {
             return false;
         }
@@ -730,7 +730,7 @@ class CustomerDetailsForm extends Form
                 }
             }
         }
-        
+
         if (!isset($data['DeliveryAddress1']) && isset($data['ShippingAddress'])) {
             $delivery_address = ContactLocation::get()
                 ->byID($data['ShippingAddress']);
@@ -745,9 +745,9 @@ class CustomerDetailsForm extends Form
             }
         }
 
-        /** 
-         * We now need to save the new data back into the form 
-         * before we can save the form into the estimate 
+        /**
+         * We now need to save the new data back into the form
+         * before we can save the form into the estimate
          */
         $this->loadDataFrom($data);
         $this->saveInto($estimate);
@@ -821,7 +821,7 @@ class CustomerDetailsForm extends Form
      * Try to return an existing address from the provided contact or an empty ContactLocation
      * (if none found)
      *
-     * @param string  $address_one The line 1 of the address 
+     * @param string  $address_one The line 1 of the address
      * @param string  $post_code   The postal code
      * @param Contact $contact     The contact to search against
      *
