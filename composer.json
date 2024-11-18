@@ -25,13 +25,31 @@
           "issues": "http://github.com/silvercommerce/checkout/issues"
       },
       "require": {
-          "silverstripe/framework": "~4.0",
-          "silverstripe/silverstripe-omnipay": "~3.0",
-          "silvercommerce/settings": "~1.0",
-          "silvercommerce/orders-admin": "~1.0",
-          "silvercommerce/contact-admin": "~1.0",
-          "silvercommerce/postage": "~1.0"
+          "silverstripe/framework": "^5",
+          "silverstripe/silverstripe-omnipay": "^4",
+          "silvercommerce/settings": "dev-ss5",
+          "silvercommerce/orders-admin": "dev-ss5",
+          "silvercommerce/contact-admin": "dev-ss5",
+          "silvercommerce/postage": "dev-ss5"
       },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bigfork/silvercommerce-esttings"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bigfork/silvercommerce-orders-admin"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bigfork/silvercommerce-contact-admin"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bigfork/silvercommerce-postage"
+        }
+    ],
       "suggest": {
           "silverstripe/cms": "Add full content management support to your site",
           "i-lateral/silverstripe-users": "Add user account management and registration"
